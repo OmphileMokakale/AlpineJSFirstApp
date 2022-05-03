@@ -3,9 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <title>Alpine JS</title>
 </head>
 <body>
+    <div class="container">
+        <div class="row">
     <div x-data="{title: 'My firt Alpine App'}">
 
         <h2 x-text="title"></h2>
@@ -20,6 +24,64 @@
         <button @click="count--"> Count Down</button>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.0/dist/alpine.min.js" defer></script>
+
+    <!-- x-init Directive -->
+    <div x-data="{count: 60}"
+    x-init="setInterval(function(){
+                count--;
+              },100)"; 
+    >    
+    <h1 x-text="count"></h1>
+    </div>
+
+    <!-- x-show directive -->
+    <div x-data="{show: false}">
+        <button @click="show=!show">Show</button>
+        <div x-show.transition="show">
+            Hello
+        </div>
+    </div>
+
+     <!-- x-model directive -->
+     <div x-data="{ title: 'AlpineJS is really Awesome' }">
+        <p x-text="title"></p>
+        <input type="text" x-model="title">
+    </div>
+
+    <div x-data="{paragraph: '<p> dynamic paragraph</p>'}"> 
+
+        <div x-html="paragraph"></div>
+    </div>
+
+    <!-- x-ref directive -->
+    <div x-data="{code: '<p> dynamic paragraph</p>'}"> 
+        <div x-ref="sentence">I am a Sentence </div>
+        <button @click="$refs.sentence.innerText = 'I just Changed'">Change sentence </button>
+    </div>
+
+<!-- x-if directive -->
+<div x-data="{ socks: 'blue' }">
+    <template x-if="socks=='blue'">
+        <p>My socks are blue</p>
+    </template>
+    <template x-if="socks=='green'">
+        <p>My socks are green</p>
+    </template>
+    <button @click="socks = 'green'">Change Sox</button>
+</div>
+
+<!-- x-for directive -->
+<div x-data="{ groceries: ['Milk', 'Eggs', 'Cheese'] }">
+    <p>Groceries</p>
+    <ul>
+        <template x-for="item in groceries">
+            <li x-text="item"></li>
+        </template>
+    </ul>
+</div>
+</div>
+</div>         
+            
+<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.0/dist/alpine.min.js" defer></script>
 </body>
 </html>
