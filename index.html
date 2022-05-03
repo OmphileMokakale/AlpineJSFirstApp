@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alpine JS</title>
+</head>
+<body>
+    <div x-data="{title: 'My firt Alpine App'}">
+
+        <h2 x-text="title"></h2>
+
+        <!-- onclick change the tittle -->
+        <button @click="title='Alpine Rocks!'">Click Me</button>
+    </div>
+
+    <div x-data="{ count: 1 }">
+        <p x-text="count"></p>
+        <button @click="count++">Count Up</button>
+        <button @click="count--"> Count Down</button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.0/dist/alpine.min.js" defer></script>
+</body>
+</html>
