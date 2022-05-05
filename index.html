@@ -16,7 +16,7 @@
         <div class="row">
             
     <div class="col" x-data="{title: 'My first Alpine App'}">
-        <h5>I) Change tittle text</h5>
+        <h6>I) Change tittle text when the button is clicked</h6>
         <h3 x-text="title"></h3>
         <!-- onclick change the tittle -->
         <button @click="title='Alpine Rocks!'">Click Me</button>
@@ -24,7 +24,7 @@
 
    
     <div class="col" x-data="{ count: 1 }">
-        <h5>II) Counter up and down</h5>
+        <h6>II) Increase and Decrease counter</h6>
         <p x-text="count"></p>
         <button @click="count++">Count Up</button>
         <button @click="count--"> Count Down</button>
@@ -35,10 +35,17 @@
     <div class="col" x-data="{count: 60}"
     x-init="setInterval(function(){
                 count--;
-              },100)"; 
+              },100)" 
     >    
-    <h5>III) Counter</h5>
+    <h6>III) reset, stop and start timer</h6>
     <h1 x-text="count"></h1>
+
+    <button @click="count=60">Reset Timer </button>
+    <button @click="count=0">Stop Timer </button>
+    <button @click="count">Start Timer </button>
+    
+    </div>
+
     </div>
 </div>
 </div> 
@@ -48,7 +55,7 @@
 
     <!-- x-show directive -->
     <div class="col" x-data="{show: false}">
-        <h5>IV) Show and hide text</h5> 
+        <h6>IV) Hide and show text</h6> 
         <button @click="show=!show">Show</button>
         <div x-show.transition="show">
             Hello
@@ -58,14 +65,14 @@
 
      <!-- x-model directive -->
      <div class="col" x-data="{ title: 'AlpineJS is really Awesome' }">
-        <h5>V) Binding Variables</h5> 
+        <h6>V) Binding Variables using x-model directive</h6> 
         <p x-text="title"></p>
         <input type="text" x-model="title">
     </div>
 
 <!-- x-html directive -->
     <div class="col" x-data="{paragraph: '<p> Dynamic Paragraph</p>'}"> 
-        <h5>VI) Dynamic HTML</h5> 
+        <h6>VI) insert HTML elements directly using x-html directive</h6> 
         <div x-html="paragraph"></div>
     </div>
 
@@ -77,7 +84,7 @@
 
     <!-- x-ref directive -->
     <div class="col" x-data="{code: '<p> dynamic paragraph</p>'}"> 
-        <h5>VII) x-ref directive </h5> 
+        <h6>VII) referencing elements using x-ref directive </h6> 
         <div x-ref="sentence">I am a Sentence </div>
         <button @click="$refs.sentence.innerText = 'I just Changed'">Change sentence </button>
     </div>
@@ -86,7 +93,7 @@
 
 <!-- x-if directive -->
 <div class="col" x-data="{ socks: 'blue' }">
-    <h5>VIII) x-if directive </h5>
+    <h6>VIII) show or hide elements based on a conditional using the x-if </h6>
 
     <template x-if="socks=='blue'">
         <p>My socks are blue</p>
@@ -94,12 +101,12 @@
     <template x-if="socks=='green'">
         <p>My socks are green</p>
     </template>
-    <button @click="socks = 'green'">Change Sox</button>
+    <button @click="socks = 'green'">Change Socks</button>
 </div>
 
 <!-- x-for directive -->
 <div class="col" x-data="{ groceries: ['Milk', 'Eggs', 'Cheese'] }">
-    <h5>IX) x-for directive </h5>
+    <h6>IX) loop through an array of items using x-for directive </h6>
     <p>Groceries</p>
     <ul>
         <template x-for="item in groceries">
@@ -108,7 +115,41 @@
     </ul>
 </div>
 </div>
-</div>     
+</div>  
+
+
+
+<div x-data="{
+    start: null, 
+    current: null, 
+    stop: null, 
+    interval: null
+}">
+
+    <button x-show="!start" @click="
+        start = Date.now()
+        current = start
+        interval = setInterval(() => {current = Date.now()}, 100)
+    ">Start</button>
+
+    <div x-show="current">
+        <button @click="
+            current = null
+            stop = Date.now()
+            clearInterval(interval)
+        ">Stop</button>
+        <p><span x-text="(current - start) / 1000"></span> Seconds</p>
+    </div>
+
+    <div x-show="stop">
+        <button @click="
+            start = null
+            stop = null
+        ">Reset</button>
+        <p><span x-text="(stop - start) / 1000"></span> Seconds</p>
+    </div>
+</div>
+
 </div>
             
 <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.0/dist/alpine.min.js" defer></script>
